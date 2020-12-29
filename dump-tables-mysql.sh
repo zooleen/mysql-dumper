@@ -1,14 +1,12 @@
 #!/bin/bash
 
-# dump-tables-mysql.sh
-# Descr: Dump MySQL table data into separate SQL files for a specified database.
-# Usage: Run without args for usage info.
+# dump-tables-mysql-enc.sh
+#
+# Создает дамп таблиц базы данных MySQL в отдельные архивы.
+# Использование: Запустить без аргументов, чтоб увидеть инфо.
 # Author: @Trutane
 # Editor: github.com/zooleen
-# Ref: http://stackoverflow.com/q/3669121/138325
-# Notes:
-#  * Output files are compressed and saved in the current working dir, unless DIR is
-#    specified on command-line.
+#
 
 [ $# -lt 4 ] && echo "Usage: $(basename $0) <DB_HOST> <DB_USER> <DB_PASS> <DB_NAME> [<DIR>]" && exit 1
 
@@ -32,4 +30,4 @@ do
     tbl_count=$(( tbl_count + 1 ))
 done
 
-echo "$tbl_count tables dumped from database '$DB' into dir=$DIR"
+echo "$tbl_count таблиц создано из базы данных '$DB' в каталог: $DIR"
