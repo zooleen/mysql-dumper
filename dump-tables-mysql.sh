@@ -22,7 +22,7 @@ DIR=$5
 [ -n "$DIR" ] || DIR=.
 test -d $DIR || mkdir -p $DIR
 
-mkdir -p $DIR/$prefix
+mkdir -p $DIR/$prefix/`date +%F`/
 MKDIR="$DIR/$prefix/`date +%F`/"
 
 echo "Dumping tables into separate SQL command files for database '$DB' into dir=$DIR"
