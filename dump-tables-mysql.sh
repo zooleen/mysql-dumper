@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# dump-tables-mysql-enc.sh
+# dump-tables-mysql.sh
 #
 # Создает дамп таблиц базы данных MySQL в отдельные архивы.
 # Использование: Запустить без аргументов, чтоб увидеть инфо.
@@ -23,6 +23,7 @@ DIR=$5
 test -d $DIR || mkdir -p $DIR
 
 mkdir -p $DIR/$prefix
+MKDIR="$DIR/$prefix/`date +%F`/"
 
 echo "Dumping tables into separate SQL command files for database '$DB' into dir=$DIR"
 
@@ -31,8 +32,8 @@ tbl_count=0
 for t in $(mysql -NBA -h $DB_host -u $DB_user -p$DB_pass -D $DB -e 'show tables')
 do
     echo "DUMPING TABLE: $DB.$t"
-    mysqldump --skip-lock-tables -h $DB_host -u $DB_user -p$DB_pass $DB $t | gzip >  $DIR/$prefix$DB.$t.sql.gz
+    mysqldump --skip-lock-tables -h $DB_host -u $DB_user -p$DB_pass $DB $t | gzip >  $MKDIR/$DB.$t.sql.gz
     tbl_count=$(( tbl_count + 1 ))
 done
 
-echo "$tbl_count таблиц создано из базы данных '$DB' в каталог: $DIR/$prefix"
+echo "$tbl_count таблиц создано из базы данных '$DB' в каталог: $MKDIR"
